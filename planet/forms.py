@@ -6,7 +6,7 @@ from django import forms
 from django.utils.translation import ugettext as _
 from django.forms import ModelForm
 from .models import Feed
-from django.forms import ValidationError, URLField()
+from django.forms import ValidationError, URLField
 
 SEARCH_CHOICES = (
     ("posts", _("Posts")),
