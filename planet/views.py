@@ -245,10 +245,13 @@ def search(request):
         return HttpResponseRedirect(reverse("planet_post_list"))
 
 
+from planet.settings import PLANET_CONFIG
+
+
 class FeedAddView(CreateView):
     model = Feed
     fields = ["url"]
-    from planet.settings import PLANET_CONFIG
+
     if PLANET_CONFIG["LOGIN_REQUIRED_FOR_ADDING_FEED"] == 2:
         template_name = 'planet/feeds/add_testurl.html'
     else:
