@@ -245,7 +245,7 @@ def search(request):
         return HttpResponseRedirect(reverse("planet_post_list"))
 
 
-from planet.settings import PLANET_CONFIG
+
 
 
 class FeedAddView(CreateView):
