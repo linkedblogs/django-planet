@@ -17,7 +17,7 @@ from planet.views import FeedAddView, BlogListByUserView, BlogDeleteView
 
 
 if PLANET_CONFIG["LOGIN_REQUIRED_FOR_ADDING_FEED"] == 2:
-    url_add_feed_tuple = url(r'^feeds/add/$', login_required(FeedAddView.as_view()), name="planet_feed_add")
+    url_add_feed_tuple = url(r'^feeds/add/$', login_required(FeedAddView.as_view(template='planet/feeds/add_testurl.html')), name="planet_feed_add")
 elif PLANET_CONFIG["LOGIN_REQUIRED_FOR_ADDING_FEED"] == 1:
     url_add_feed_tuple = url(r'^feeds/add/$', login_required(FeedAddView.as_view()), name="planet_feed_add")
 else:
