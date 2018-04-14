@@ -47,9 +47,6 @@ class AuthorizedFeedAddForm(FeedAddForm):
         model = Feed
         fields = FeedAddForm.Meta.fields + ['testurl',]
 
-    def clean_url(self):
-        return super(AuthorizedFeedAddForm, self).clean()
-
     def clean_testurl(self):
         testurl = self.cleaned_data['testurl']
         url = self.clean_url()
