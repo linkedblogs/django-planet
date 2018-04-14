@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
@@ -250,18 +249,8 @@ def search(request):
 
 class FeedAddView(CreateView):
     model = Feed
-    fields = ["url"]
-
     template_name = 'planet/feeds/add.html'
     success_message = _("Feed with url=%(url)s was created successfully")
-
-    def clean_url(self):
-        url = self.cleaned_data['url']
-
-        if Feed.objects.filter(url=url).count() > 0:
-            raise ValidationError(_('A feed with this URL already exists.'))
-
-        return url
 
     def form_valid(self, form):
         feed = form.save()

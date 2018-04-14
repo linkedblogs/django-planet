@@ -14,14 +14,16 @@ from planet.feeds import PostFeed, AuthorFeed, AuthorTagFeed, TagFeed
 from planet.settings import PLANET_CONFIG
 from planet.sitemaps import planet_sitemaps_dict
 from planet.views import FeedAddView, BlogListByUserView, BlogDeleteView
+from planet.forms import FeedAddForm, AuthorizedFeedAddForm
+
 
 
 if PLANET_CONFIG["LOGIN_REQUIRED_FOR_ADDING_FEED"] == 2:
-    url_add_feed_tuple = url(r'^feeds/add/$', login_required(FeedAddView.as_view(template='planet/feeds/add_testurl.html')), name="planet_feed_add")
+    url_add_feed_tuple = url(r'^feeds/add/$', login_required(FeedAddView.as_view(form_class=AuthorizedFeedAddForm)), name="planet_feed_add")
 elif PLANET_CONFIG["LOGIN_REQUIRED_FOR_ADDING_FEED"] == 1:
-    url_add_feed_tuple = url(r'^feeds/add/$', login_required(FeedAddView.as_view()), name="planet_feed_add")
+    url_add_feed_tuple = url(r'^feeds/add/$', login_required(FeedAddView.as_view(form_class=FeedAddForm)), name="planet_feed_add")
 else:
-    url_add_feed_tuple = url(r'^feeds/add/$', FeedAddView.as_view(), name="planet_feed_add")
+    url_add_feed_tuple = url(r'^feeds/add/$', FeedAddView.as_view(form_class=FeedAddForm), name="planet_feed_add")
 
 
 urlpatterns = patterns('planet.views',

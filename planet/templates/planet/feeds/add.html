@@ -20,10 +20,28 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{% trans "Add a New Feed" %}</h1>
-  <form action="" method="POST">{% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="{% trans 'Submit' %}" />
-      <a href="javascript: history.back();">{% trans 'Cancel' %}</a>
-  </form>
+    <div class="row">
+        <div class="col-md-4">
+            <form id="feed_form" method="post" action="{% url "planet_feed_add" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+                <legend>{% trans "Add Feed" %}</legend>
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button type="submit" class="btn btn-primary">{% trans "Import it" %}</button>
+                <a href="javascript: history.back();">{% trans 'Cancel' %}</a>
+            </form>
+
+        </div>
+
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#id_feed_url').focus();
+        });
+    </script>
 {% endblock %}
