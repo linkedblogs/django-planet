@@ -16,7 +16,7 @@ setup(
         "feedparser",
         "django-tagging==0.3.6",
         "django-pagination-py3",
-        "Django>=1.8,<2.0",
+        "Django>=1.8,<1.9",
         "beautifulsoup4"
     ],
 
