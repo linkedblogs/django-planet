@@ -248,7 +248,11 @@ def search(request):
 class FeedAddView(CreateView):
     model = Feed
     fields = ["url"]
-    template_name = 'planet/feeds/add.html'
+    from planet.settings import PLANET_CONFIG
+    if PLANET_CONFIG["LOGIN_REQUIRED_FOR_ADDING_FEED"] == 2:
+        template_name = 'planet/feeds/add_testurl.html'
+    else:
+        template_name = 'planet/feeds/add.html'
     success_message = _("Feed with url=%(url)s was created successfully")
 
     def clean_url(self):
