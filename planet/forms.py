@@ -49,10 +49,7 @@ class AuthorizedFeedAddForm(FeedAddForm):
 
     def clean_testurl(self):
         testurl = self.cleaned_data['testurl']
-        try:
-            url = self.clean_url()
-        except:
-            raise
+        url = self.cleaned_data['url']
         o1 = urlparse(url)
         o2 = urlparse(testurl)
         if o1.netloc != o2.netloc:
