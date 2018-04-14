@@ -38,9 +38,7 @@ import urllib
 import urllib.request
 from urllib.parse import urlparse
 from urllib.error import HTTPError
-
 from planet.settings import PLANET_CONFIG
-
 
 
 class AuthorizedFeedAddForm(FeedAddForm):
