@@ -71,9 +71,9 @@ class Blog(models.Model):
     def __str__(self):
         return '{} ({})'.format(self.title, self.url)
 
-    #@models.permalink
+    @models.permalink
     def get_absolute_url(self):
-        return reverse("planet_blog_detail", args=[self.id, self.get_slug(),])
+        return reverse("planet_blog_detail", [self.id, self.get_slug(),], {})
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
