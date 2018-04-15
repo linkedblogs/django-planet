@@ -226,9 +226,9 @@ class Feed(models.Model):
     def __str__(self):
         return '{} ({})'.format(self.title, self.url)
 
-    @models.permalink
+    #@models.permalink
     def get_absolute_url(self):
-        return reverse("planet_feed_detail", args=[str(self.id), self.get_slug()])
+        return reverse("planet_feed_detail", args=[str(self.id), self.get_slug(),])
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
@@ -286,9 +286,9 @@ class Post(models.Model):
     def __str__(self):
         return "{} [{}]".format(self.title, self.feed.title)
 
-    @models.permalink
+    #@models.permalink
     def get_absolute_url(self):
-        return reverse("planet_post_detail", args=[str(self.id), self.get_slug()])
+        return reverse("planet_post_detail", args=[str(self.id), self.get_slug(),])
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
