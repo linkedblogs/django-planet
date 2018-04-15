@@ -1,5 +1,5 @@
 Django>=1.8,<2.0
-django-tagging==0.3.6
+django-tagging>=0.4.6
 django-pagination-py3
 feedparser
 pinax-theme-bootstrap>=8.0
