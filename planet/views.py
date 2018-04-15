@@ -258,10 +258,13 @@ class FeedAddView(CreateView):
         if self.request.user.is_authenticated():
             feed.blog.owner = self.request.user
             feed.blog.save()
+            redirect_url = "planet_blog_list_by_user"
+        else:
+            redirect_url = "planet_index"
 
         self.object = feed
 
-        return HttpResponseRedirect(reverse("planet_index"))
+        return HttpResponseRedirect(reverse(redirect_url))
 
 
 class BlogListByUserView(ListView):
