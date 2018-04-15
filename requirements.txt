@@ -1,4 +1,4 @@
-Django>=1.8,<2.0
+Django>=1.8,<1.11
 django-tagging==0.3.6
 django-pagination-py3
 feedparser
