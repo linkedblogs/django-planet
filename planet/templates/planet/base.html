@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block search %}
-    <form name="search_form" id="search_form" action="{% url planet_search %}" method="GET">
+    <form name="search_form" id="search_form" action="{% url "planet_search" %}" method="GET">
         <label>{% trans 'Search in' %}</label>
         {{ search_form }}
         <button name="search" value="go">{% trans 'ok' %}</button>
