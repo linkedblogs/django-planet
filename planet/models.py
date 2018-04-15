@@ -36,6 +36,7 @@ from tagging.models import Tag
 from planet.managers import (FeedManager, AuthorManager, BlogManager,
     PostManager, GeneratorManager, PostLinkManager, FeedLinkManager,
     EnclosureManager)
+from django.urls import reverse
 
 
 def _get_user_model():
@@ -72,7 +73,7 @@ class Blog(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('planet.views.blog_detail', [str(self.id), self.get_slug()])
+        return reverse("planet_blog_detail", [str(self.id), self.get_slug()])
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
@@ -227,7 +228,7 @@ class Feed(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('planet.views.feed_detail', [str(self.id), self.get_slug()])
+        return reverse("planet_feed_detail", [str(self.id), self.get_slug()])
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
@@ -287,7 +288,7 @@ class Post(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('planet.views.post_detail', [str(self.id), self.get_slug()])
+        return reverse("planet_post_detail", [str(self.id), self.get_slug()])
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
@@ -324,7 +325,7 @@ class Author(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('planet.views.author_detail', [str(self.id), self.get_slug()])
+        return reverse("planet_author_detail", [str(self.id), self.get_slug()])
 
     def get_slug(self):
         return slugify(self.name) or "no-title"
