@@ -73,7 +73,7 @@ class Blog(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return reverse("planet_blog_detail", kwargs={'blog_id': str(self.id),'slug': self.get_slug()})
+        return reverse("planet_blog_detail", args=[str(self.id), self.get_slug(),])
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
