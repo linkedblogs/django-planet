@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+default_app_config = 'planet.apps.PlanetConfig'
 VERSION = (0, 11, 1, "f") # following PEP 386
 
 def get_version():
