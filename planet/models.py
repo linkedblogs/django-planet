@@ -288,7 +288,7 @@ class Post(models.Model):
 
     #@models.permalink
     def get_absolute_url(self):
-        return reverse("planet_post_detail", args=[str(self.id), self.get_slug(),])
+        return reverse("planet_post_detail", args=[str(self.id), self.get_slug(), ])
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
@@ -323,9 +323,9 @@ class Author(models.Model):
     def __str__(self):
         return "{} ({})".format(self.name, self.email)
 
-    @models.permalink
+    #@models.permalink
     def get_absolute_url(self):
-        return reverse("planet_author_detail", args=[str(self.id), self.get_slug()])
+        return reverse("planet_author_detail", args=[str(self.id), self.get_slug(), ])
 
     def get_slug(self):
         return slugify(self.name) or "no-title"
