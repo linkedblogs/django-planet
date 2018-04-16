@@ -22,7 +22,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
 from django.conf import settings
-from django.db.models.signals import pre_delete
+#from django.db.models.signals import pre_delete
 from django.template.defaultfilters import slugify
 
 # Patch for handle new and old version of django-tagging
@@ -299,7 +299,7 @@ register(Post)
 # Deleting all asociated tags.
 def delete_asociated_tags(sender, **kwargs):
     Tag.objects.update_tags(kwargs['instance'], None)
-pre_delete.connect(delete_asociated_tags, sender=Post)
+#pre_delete.connect(delete_asociated_tags, sender=Post)
 
 
 @python_2_unicode_compatible
