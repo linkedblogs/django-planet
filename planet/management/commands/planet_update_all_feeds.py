@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from planet.tasks import process_feed
 from planet.models import Feed
 from planet.signals import feeds_updated
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = "Update all feeds"
 
     def handle(self, *args, **options):
