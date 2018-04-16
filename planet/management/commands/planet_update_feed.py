@@ -7,8 +7,8 @@ from planet.tasks import process_feed
 
 
 class Command(BaseCommand):
-    help = "Update a feed."
-    args = "<feed_url>"
+    def add_arguments(self, parser):
+        parser.add_argument('feed_url', nargs='+', type=str)
 
     def handle(self, *args, **options):
         if not len(args):

@@ -9,15 +9,16 @@ from planet.tasks import process_feed
 
 class Command(BaseCommand):
     help = "Add a complete blog feed to our db."
-    args = "<feed_url>"
-    option_list = BaseCommand.option_list + (
-        make_option('-c', '--category',
+
+    def add_arguments(self, parser):
+        parser.add_argument('feed_url', nargs='+', type=str)
+
+        parser.add_argument('-c', '--category',
             action='store',
             dest='category',
             default=None,
             metavar='Title',
-            help='Add this feed to a Category'),
-        )
+            help='Add this feed to a Category')
 
     def handle(self, *args, **options):
         if not len(args):
