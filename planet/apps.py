@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 class PlanetConfig(AppConfig):
-    name = "django-planet"
+    name = "planet"
     verbose_name = "django feed aggregator"
 
     def ready(self):
