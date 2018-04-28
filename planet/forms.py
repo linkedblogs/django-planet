@@ -31,7 +31,12 @@ class FeedAddForm(ModelForm):
         url = self.cleaned_data['url']
         if Feed.objects.filter(url=url).count() > 0:
             raise ValidationError(_('A feed with this URL already exists.'))
-
+        import feedparser as fp
+        feed = fp.parse(url)
+        try:
+            a = feed.feed.link
+        except (AttributeError, KeyError):
+            raise ValidationError(_('This is not a feed address. Did you submit the blog address instead of feed location?'))
         return url
 
 import urllib
