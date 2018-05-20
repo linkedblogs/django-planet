@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.core.urlresolvers import reverse, reverse_lazy
+import django
+if django.VERSION >= (1, 10):
+    from django.urls import reverse, reverse_lazy
+else:
+    from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
