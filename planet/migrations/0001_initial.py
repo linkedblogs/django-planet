@@ -156,8 +156,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('is_contributor', models.BooleanField(default=False, verbose_name='Is Contributor?')),
                 ('date_created', models.DateField(auto_now_add=True, verbose_name='Date created')),
-                ('author', models.ForeignKey(to='planet.Author')),
-                ('post', models.ForeignKey(to='planet.Post')),
+                ('author', models.ForeignKey(to='planet.Author', on_delete=models.CASCADE)),
+                ('post', models.ForeignKey(to='planet.Post', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('author', 'post', 'is_contributor'),
