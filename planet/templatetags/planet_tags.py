@@ -20,6 +20,9 @@ from tagging.models import Tag, TaggedItem
 
 
 register = template.Library()
+import django
+if django.VERSION >= (1, 10):
+    register.assignment_tag = register.simple_tag
 
 
 @register.inclusion_tag('planet/authors/blocks/list_for_tag.html')
@@ -233,7 +236,7 @@ def clean_html(html):
     return mark_safe(html)
 
 
-@register.simple_tag
+@register.assignment_tag
 def get_first_paragraph(body):
     if body is None:
         return ""
@@ -264,7 +267,7 @@ def get_blogs(author):
     return Blog.objects.filter(feed__post__authors=author).distinct()
 
 
-@register.simple_tag
+@register.assignment_tag
 def latest_posts(count=10):
     """
     A way to get latest posts from inside a template
