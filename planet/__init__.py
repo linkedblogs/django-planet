@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 default_app_config = 'planet.apps.PlanetConfig'
-VERSION = (0, 20, 1, "f") # following PEP 386
+VERSION = (0, 20, 2, "f") # following PEP 386
 
 def get_version():
     version = "%s.%s" % (VERSION[0], VERSION[1])
