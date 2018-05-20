@@ -233,7 +233,7 @@ def clean_html(html):
     return mark_safe(html)
 
 
-@register.assignment_tag
+@register.simple_tag
 def get_first_paragraph(body):
     if body is None:
         return ""
@@ -264,7 +264,7 @@ def get_blogs(author):
     return Blog.objects.filter(feed__post__authors=author).distinct()
 
 
-@register.assignment_tag
+@register.simple_tag
 def latest_posts(count=10):
     """
     A way to get latest posts from inside a template
