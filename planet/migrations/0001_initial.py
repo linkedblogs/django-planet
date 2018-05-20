@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(db_index=True, max_length=255, verbose_name='title', blank=True)),
                 ('url', models.URLField(unique=True, verbose_name='Url', db_index=True)),
                 ('date_created', models.DateTimeField(auto_now_add=True, verbose_name='Date created')),
-                ('owner', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('owner', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('title', 'url'),
@@ -90,8 +90,8 @@ class Migration(migrations.Migration):
                 ('last_modified', models.DateTimeField(db_index=True, null=True, verbose_name='Last modified', blank=True)),
                 ('last_checked', models.DateTimeField(null=True, verbose_name='Last checked', blank=True)),
                 ('is_active', models.BooleanField(default=True, help_text='If disabled, this feed will not be further updated.', db_index=True, verbose_name='Is active')),
-                ('blog', models.ForeignKey(blank=True, to='planet.Blog', null=True)),
-                ('category', models.ForeignKey(blank=True, to='planet.Category', null=True)),
+                ('blog', models.ForeignKey(blank=True, to='planet.Blog', null=True, on_delete=models.CASCADE)),
+                ('category', models.ForeignKey(blank=True, to='planet.Category', null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('title',),
@@ -107,7 +107,7 @@ class Migration(migrations.Migration):
                 ('rel', models.CharField(max_length=50, verbose_name='Relation', db_index=True)),
                 ('mime_type', models.CharField(max_length=50, verbose_name='MIME type', db_index=True)),
                 ('link', models.URLField(max_length=500, verbose_name='Url', db_index=True)),
-                ('feed', models.ForeignKey(to='planet.Feed')),
+                ('feed', models.ForeignKey(to='planet.Feed', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('feed', 'rel', 'mime_type'),
@@ -174,7 +174,7 @@ class Migration(migrations.Migration):
                 ('mime_type', models.CharField(max_length=50, verbose_name='MIME type', db_index=True)),
                 ('link', models.URLField(max_length=500, verbose_name='Url', db_index=True)),
                 ('title', models.CharField(max_length=255, verbose_name='Title', db_index=True)),
-                ('post', models.ForeignKey(to='planet.Post')),
+                ('post', models.ForeignKey(to='planet.Post', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('post', 'title', 'rel'),
@@ -192,7 +192,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='feed',
-            field=models.ForeignKey(to='planet.Feed'),
+            field=models.ForeignKey(to='planet.Feed', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
@@ -206,19 +206,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='feed',
             name='generator',
-            field=models.ForeignKey(blank=True, to='planet.Generator', null=True),
+            field=models.ForeignKey(blank=True, to='planet.Generator', null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='feed',
             name='site',
-            field=models.ForeignKey(blank=True, to='sites.Site', null=True),
+            field=models.ForeignKey(blank=True, to='sites.Site', null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='enclosure',
             name='post',
-            field=models.ForeignKey(to='planet.Post'),
+            field=models.ForeignKey(to='planet.Post', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]
