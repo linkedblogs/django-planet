@@ -58,7 +58,7 @@ class Blog(models.Model):
     title = models.CharField(_("title"), max_length=255, blank=True, db_index=True)
     url = models.URLField(_("Url"), unique=True, db_index=True)
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
-    owner = models.ForeignKey(_get_user_model(), null=True, blank=True)
+    owner = models.ForeignKey(_get_user_model(), null=True, blank=True, on_delete=models.CASCADE)
 
     site_objects = BlogManager()
     objects = models.Manager()
@@ -125,9 +125,9 @@ class Feed(models.Model):
     A model to store detailed info about a parsed Atom or RSS feed
     """
     # a feed belongs to a blog
-    blog = models.ForeignKey("planet.Blog", null=True, blank=True)
+    blog = models.ForeignKey("planet.Blog", null=True, blank=True, on_delete=models.CASCADE)
     # a site where this feed is published
-    site = models.ForeignKey(Site, null=True, blank=True, db_index=True)
+    site = models.ForeignKey(Site, null=True, blank=True, db_index=True, on_delete=models.CASCADE)
     # url to retrieve this feed
     url = models.URLField(_("Url"), unique=True, db_index=True)
     # title attribute from Feedparser's Feed object
@@ -139,7 +139,7 @@ class Feed(models.Model):
     rights = models.CharField(_("Rights"), max_length=255, blank=True,
                               null=True)
     # generator_detail attribute from Feedparser's Feed object
-    generator = models.ForeignKey("planet.Generator", blank=True, null=True)
+    generator = models.ForeignKey("planet.Generator", blank=True, null=True, on_delete=models.CASCADE)
     # info attribute from Feedparser's Feed object
     info = models.CharField(_("Infos"), max_length=255, blank=True, null=True)
     # language name or code. language attribute from Feedparser's Feed object
@@ -168,7 +168,7 @@ class Feed(models.Model):
         help_text=_("If disabled, this feed will not be further updated."))
 
     category = models.ForeignKey(Category, blank=True, null=True,
-                                 db_index=True)
+                                 db_index=True, on_delete=models.CASCADE)
 
     site_objects = FeedManager()
     objects = models.Manager()
@@ -239,8 +239,8 @@ class PostAuthorData(models.Model):
     """
     This is the intermediate model that holds the information of the post authors
     """
-    post = models.ForeignKey("planet.Post")
-    author = models.ForeignKey("planet.Author")
+    post = models.ForeignKey("planet.Post", on_delete=models.CASCADE)
+    author = models.ForeignKey("planet.Author", on_delete=models.CASCADE)
     # True if this author is a contributor. False to tell he is the original
     # author of ths post
     is_contributor = models.BooleanField(_("Is Contributor?"), default=False)
@@ -262,7 +262,7 @@ class Post(models.Model):
     """
     A feed contains a collection of posts. This model stores them.
     """
-    feed = models.ForeignKey("planet.Feed", null=False, blank=False)
+    feed = models.ForeignKey("planet.Feed", null=False, blank=False, on_delete=models.CASCADE)
     title = models.CharField(_("Title"), max_length=255, db_index=True)
     authors = models.ManyToManyField("planet.Author", through=PostAuthorData)
     url = models.URLField(_("Url"), max_length=1000, db_index=True)
@@ -336,7 +336,7 @@ class FeedLink(models.Model):
     """
     Stores data contained in feedparser's feed.links for a given feed
     """
-    feed = models.ForeignKey("planet.Feed")
+    feed = models.ForeignKey("planet.Feed", on_delete=models.CASCADE)
     rel = models.CharField(_("Relation"), max_length=50, db_index=True)
     mime_type = models.CharField(_("MIME type"), max_length=50, db_index=True)
     link = models.URLField(_("Url"), max_length=500, db_index=True)
@@ -358,7 +358,7 @@ class PostLink(models.Model):
     """
     Stores data contained in feedparser's feed.entries[i].links for a given feed
     """
-    post = models.ForeignKey("planet.Post")
+    post = models.ForeignKey("planet.Post", on_delete=models.CASCADE)
     rel = models.CharField(_("Relation"), max_length=50, db_index=True)
     mime_type = models.CharField(_("MIME type"), max_length=50, db_index=True)
     link = models.URLField(_("Url"), max_length=500, db_index=True)
@@ -382,7 +382,7 @@ class Enclosure(models.Model):
     """
     Stores data contained in feedparser's feed.entries[i].enclosures for a given feed
     """
-    post = models.ForeignKey("planet.Post")
+    post = models.ForeignKey("planet.Post", on_delete=models.CASCADE)
     length = models.CharField(_("Length"), max_length=20)
     mime_type = models.CharField(_("MIME type"), max_length=50, db_index=True)
     link = models.URLField(_("Url"), max_length=500, db_index=True)
