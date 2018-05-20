@@ -2,7 +2,11 @@
 from datetime import datetime
 
 from django.contrib.sitemaps import Sitemap
-from django.core.urlresolvers import reverse
+import django
+if django.VERSION >= (1, 10):
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
 from planet.models import Post, Blog, Feed, Author
