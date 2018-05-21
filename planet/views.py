@@ -231,7 +231,7 @@ class FeedAddView(CreateView):
     def form_valid(self, form):
         feed = form.save()
 
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             feed.blog.owner = self.request.user
             feed.blog.save()
             redirect_url = "planet_blog_list_by_user"
