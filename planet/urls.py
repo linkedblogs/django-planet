@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url, include
 
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.sitemaps import views as sitemaps_views
 from django.views.decorators.cache import cache_page
