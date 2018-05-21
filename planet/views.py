@@ -247,7 +247,7 @@ class FeedAddView(CreateView):
         if self.request.user.is_authenticated:
             return reverse("planet_blog_list_by_user")
         else:
-            return redirect(reverse("planet_index"))
+            return reverse("planet_index")
 
 
     def get_success_message(self, cleaned_data):
