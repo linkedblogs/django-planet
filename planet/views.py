@@ -19,6 +19,7 @@ from tagging.models import Tag, TaggedItem
 from django.contrib.messages.views import SuccessMessageMixin
 
 
+
 def index(request):
     posts = Post.site_objects.all().order_by("-date_modified")
 
@@ -228,20 +229,18 @@ class FeedAddView(SuccessMessageMixin, CreateView):
     model = Feed
     template_name = 'planet/feeds/add.html'
     success_message = _("Feed with url=%(url)s was created successfully")
+    success_url = reverse("planet_blog_list_by_user")
 
     def form_valid(self, form):
         feed = form.save()
-
+        self.object = feed
         if self.request.user.is_authenticated:
             feed.blog.owner = self.request.user
             feed.blog.save()
-            redirect_url = "planet_blog_list_by_user"
         else:
-            redirect_url = "planet_index"
+            return redirect(reverse("planet_index"))
 
-        self.object = feed
-
-        return HttpResponseRedirect(reverse(redirect_url))
+        return redirect(self.get_success_url())
 
 
 class BlogListByUserView(ListView):
