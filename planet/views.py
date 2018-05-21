@@ -249,10 +249,6 @@ class FeedAddView(CreateView):
         else:
             return redirect(reverse("planet_index"))
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-
-        return response
 
     def get_success_message(self, cleaned_data):
         return self.success_message % cleaned_data
