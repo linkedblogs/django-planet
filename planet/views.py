@@ -225,25 +225,37 @@ def search(request):
         return HttpResponseRedirect(reverse("planet_post_list"))
 
 
-class FeedAddView(SuccessMessageMixin, CreateView):
+class FeedAddView(CreateView):
     model = Feed
     template_name = 'planet/feeds/add.html'
     success_message = _("Feed with url=%(url)s was created successfully")
     #success_url =
 
     def form_valid(self, form):
+        from django.contrib import messages
         feed = form.save()
         self.object = feed
         if self.request.user.is_authenticated:
             feed.blog.owner = self.request.user
             feed.blog.save()
-        else:
-            return redirect(reverse("planet_index"))
-
+        success_message = self.get_success_message(form.cleaned_data)
+        if success_message:
+            messages.success(self.request, success_message)
         return redirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse("planet_blog_list_by_user")
+        if self.request.user.is_authenticated:
+            return reverse("planet_blog_list_by_user")
+        else:
+            return redirect(reverse("planet_index"))
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        return response
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % cleaned_data
 
 
 class BlogListByUserView(ListView):
