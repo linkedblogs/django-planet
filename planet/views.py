@@ -229,7 +229,7 @@ class FeedAddView(SuccessMessageMixin, CreateView):
     model = Feed
     template_name = 'planet/feeds/add.html'
     success_message = _("Feed with url=%(url)s was created successfully")
-    success_url = reverse("planet_blog_list_by_user")
+    #success_url =
 
     def form_valid(self, form):
         feed = form.save()
@@ -241,6 +241,9 @@ class FeedAddView(SuccessMessageMixin, CreateView):
             return redirect(reverse("planet_index"))
 
         return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse("planet_blog_list_by_user")
 
 
 class BlogListByUserView(ListView):
