@@ -16,6 +16,7 @@ from planet.models import Blog, Feed, Author, Post
 from planet.forms import SearchForm
 
 from tagging.models import Tag, TaggedItem
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 def index(request):
@@ -223,7 +224,7 @@ def search(request):
         return HttpResponseRedirect(reverse("planet_post_list"))
 
 
-class FeedAddView(CreateView):
+class FeedAddView(SuccessMessageMixin, CreateView):
     model = Feed
     template_name = 'planet/feeds/add.html'
     success_message = _("Feed with url=%(url)s was created successfully")
